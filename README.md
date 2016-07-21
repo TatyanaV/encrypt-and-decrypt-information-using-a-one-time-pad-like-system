@@ -114,40 +114,40 @@ Finally, you will be required to write a compilation script (see below) that com
 
 Here is an example of usage, if you were testing your code from the command line:
 
-% cat plaintext1
-THE RED GOOSE FLIES AT MIDNIGHT
-% otp_enc_d 57171 &
-% otp_dec_d 57172 &
-% keygen 10 > myshortkey
-% otp_enc plaintext1 myshortkey 57171 > ciphertext1 
-Error: key ‘myshortkey’ is too short
-% echo $?
-1
-% keygen 1024 > mykey
-% otp_enc plaintext1 mykey 57171 > ciphertext1
-% cat ciphertext1
-GU WIRGEWOMGRIFOENBYIWUG T WOFL
-% keygen 1024 > mykey2
-% otp_dec ciphertext1 mykey 57172 > plaintext1_a
+% cat plaintext1 </br>
+THE RED GOOSE FLIES AT MIDNIGHT</br>
+% otp_enc_d 57171 &</br>
+% otp_dec_d 57172 &</br>
+% keygen 10 > myshortkey</br>
+% otp_enc plaintext1 myshortkey 57171 > ciphertext1 </br>
+Error: key ‘myshortkey’ is too short</br>
+% echo $?</br>
+1</br>
+% keygen 1024 > mykey</br>
+% otp_enc plaintext1 mykey 57171 > ciphertext1</br>
+% cat ciphertext1</br>
+GU WIRGEWOMGRIFOENBYIWUG T WOFL</br>
+% keygen 1024 > mykey2</br>
+% otp_dec ciphertext1 mykey 57172 > plaintext1_a</br>
 % otp_dec ciphertext1 mykey2 57172 > plaintext1_b
-% cat plaintext1_a
-THE RED GOOSE FLIES AT MIDNIGHT
-% cat plaintext1_b
-WVIOWBTUEIOBC  FVTROIROUXA JBWE
-% cmp plaintext1 plaintext1_a
-% echo $?
-0
-% cmp plaintext1 plaintext1_b
-plaintext1 plaintext1_b differ: byte 1, line 1
-% echo $?
-1
-% otp_enc plaintext5 mykey 57171
-otp_enc_d error: input contains bad characters
-% otp_enc plaintext3 mykey 57172
-Error: could not contact otp_enc_d on port 57172
-% echo $?
-2
-%
+% cat plaintext1_a</br>
+THE RED GOOSE FLIES AT MIDNIGHT</br>
+% cat plaintext1_b</br>
+WVIOWBTUEIOBC  FVTROIROUXA JBWE</br>
+% cmp plaintext1 plaintext1_a</br>
+% echo $?</br>
+0</br>
+% cmp plaintext1 plaintext1_b</br>
+plaintext1 plaintext1_b differ: byte 1, line 1</br>
+% echo $?</br>
+1</br>
+% otp_enc plaintext5 mykey 57171</br>
+otp_enc_d error: input contains bad characters</br>
+% otp_enc plaintext3 mykey 57172</br>
+Error: could not contact otp_enc_d on port 57172</br>
+% echo $?</br>
+2</br>
+%</br>
 
 #Compilation Script
 
