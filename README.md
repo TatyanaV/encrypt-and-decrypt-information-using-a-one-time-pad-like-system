@@ -29,22 +29,22 @@ The material on the selected sheet is the key for this message. Each letter from
 In this example, the technique is to combine the key and the message using modular addition. The numerical values of corresponding message and key letters are added together, modulo 26. So, if key material begins with "XMCKL" and the message is "HELLO", then the coding would be done as follows:
 
       H       E       L       L       O  message
-   7 (H)   4 (E)  11 (L)  11 (L)  14 (O) message
-+ 23 (X)  12 (M)   2 (C)  10 (K)  11 (L) key
-= 30      16      13      21      25     message + key
-=  4 (E)  16 (Q)  13 (N)  21 (V)  25 (Z) message + key (mod 26)
-      E       Q       N       V       Z  → ciphertext
+   7 (H)   4 (E)  11 (L)  11 (L)  14 (O) message</br>
++ 23 (X)  12 (M)   2 (C)  10 (K)  11 (L) key</br>
+= 30      16      13      21      25     message + key</br>
+=  4 (E)  16 (Q)  13 (N)  21 (V)  25 (Z) message + key (mod 26)</br>
+      E       Q       N       V       Z  → ciphertext</br>
 
 If a number is larger than 26, then the remainder, after subtraction of 26, is taken [as the result]. This simply means that if the computations "go past" Z, the sequence starts again at A.
 
 The ciphertext to be sent to Bob is thus "EQNVZ". Bob uses the matching key page and the same process, but in reverse, to obtain the plaintext. Here the key is subtracted from the ciphertext, again using modular arithmetic:
 
-       E       Q       N       V       Z  ciphertext
-    4 (E)  16 (Q)  13 (N)  21 (V)  25 (Z) ciphertext
--  23 (X)  12 (M)   2 (C)  10 (K)  11 (L) key
-= -19       4      11      11      14     ciphertext – key
-=   7 (H)   4 (E)  11 (L)  11 (L)  14 (O) ciphertext – key (mod 26)
-       H       E       L       L       O  → message
+       E       Q       N       V       Z  ciphertext</br>
+    4 (E)  16 (Q)  13 (N)  21 (V)  25 (Z) ciphertext</br>
+-  23 (X)  12 (M)   2 (C)  10 (K)  11 (L) key</br>
+= -19       4      11      11      14     ciphertext – key</br>
+=   7 (H)   4 (E)  11 (L)  11 (L)  14 (O) ciphertext – key (mod 26)</br>
+       H       E       L       L       O  → message</br>
 
 Similar to the above, if a number is negative then 26 is added to make the number zero or higher.
 
@@ -62,13 +62,13 @@ When otp_enc_d makes a connection with otp_enc, it must fork off a separate proc
 
 You may either create a new process every time a connection is made, or set up a pool of five process to handle your encryption tasks. Your system must be able to do five separate encryptions at once, using either method you choose.
 
-Use this syntax for otp_enc_d:
+Use this syntax for otp_enc_d:</br>
 
-otp_enc_d listening_port
+otp_enc_d listening_port</br>
 
 listening_port is the port that otp_enc_d should listen on. You will always start otp_enc_d in the background, as follows (the port 57171 is just an example – yours should be able to use any port):
 
-% otp_enc_d 57171 &
+% otp_enc_d 57171 &</br>
 
 In all error situations, your program must output errors as appropriate (see grading script below for details), but should not crash or otherwise exit, unless the errors happen when the program is starting up. That is, if given bad input, once running, otp_enc_d should recognize the bad input, report an error to the screen, and continue to run.
 
@@ -76,15 +76,15 @@ Your otp_enc_d should be killable with the -KILL signal, as normal: you may not 
 
 otp_enc: This program connects to otp_enc_d, and asks it to perform a one-time pad style encryption as detailed above. By itself, otp_enc doesn’t do the encryption. Its syntax is as follows:
 
-otp_enc plaintext key port
+otp_enc plaintext key port</br>
 
 In this syntax, plaintext is the name of a file in the current directory that contains the plaintext you wish to encrypt. Similarly, key contains the encryption key you wish to use to encrypt the text. Finally, port is the port that otp_enc should attempt to connect to otp_enc_d on.
 
 When otp_enc receives the ciphertext, it should output it to stdout. Thus, otp_enc can be launched in any of the following methods, and should send its output appropriately:
 
-% otp_enc myplaintext mykey 57171
-% otp_enc myplaintext mykey 57171 > myciphertext
-% otp_enc myplaintext mykey 57171 > myciphertext &
+% otp_enc myplaintext mykey 57171</br>
+% otp_enc myplaintext mykey 57171 > myciphertext</br>
+% otp_enc myplaintext mykey 57171 > myciphertext &</br>
 
 If otp_enc receives key or plaintext files with bad characters in them, or the key file is shorter than the plaintext, it should exit with an error, and set the exit value to 1. If otp_enc cannot find the port given, it should report this error, and the bad port, and set the exit value to 2. Otherwise, on successfully running, otp_enc should set the exit value to 0. otp_enc should NOT be able to connect to otp_dec_d, even if it tries to connect on the correct port - you'll need to have the programs reject each other.
 
